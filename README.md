@@ -44,8 +44,8 @@ make year=2019 import
 
 ## To Do
 
-[ ] Add a `publish` step to push a table to a remote database
+- [ ] Add a `publish` step to push a table to a remote database
 
-[ ] Add process to check if a file has already been imported before importing it
+- [ ] Add process to check if a file has already been imported before importing it
 
-[ ] Add a time profiler, and potentially optimize?
+- [ ] Add a time profiler, and potentially optimize?
