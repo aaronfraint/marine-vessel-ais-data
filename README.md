@@ -24,6 +24,12 @@ LOCAL_DB_URL=postgresql://user:password@your-host/your-database
 
 ## Usage
 
+Before you can use any of the `make` commands, you need to activate your Python environment with:
+
+```
+conda activate marine-vessel-ais-data
+```
+
 To download a year's worth of zipped data files, run:
 
 ```
