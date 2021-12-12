@@ -1,3 +1,4 @@
+import sys
 import pandas as pd
 from pathlib import Path
 from geoalchemy2 import Geometry, WKTElement
@@ -60,11 +61,16 @@ def import_single_zip_file(zipped_filepath: Path) -> None:
     unzipped_filepath.unlink()
 
 
-if __name__ == "__main__":
-    print(DOWNLOAD_FOLDER)
+def import_a_year_of_files(year: int) -> None:
+    print(f"IMPORTING ALL ZIP FILES FOR {year}")
 
-    zipfiles_to_process = sorted(list(DOWNLOAD_FOLDER.rglob("2019/*.zip")))
+    zipfiles_to_process = sorted(list(DOWNLOAD_FOLDER.rglob(f"{year}/*.zip")))
 
     for zipfilepath in zipfiles_to_process:
         print(zipfilepath)
         import_single_zip_file(zipfilepath)
+
+
+if __name__ == "__main__":
+    year = sys.argv[1]
+    import_a_year_of_files(year)
