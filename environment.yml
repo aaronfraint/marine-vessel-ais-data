@@ -1,0 +1,17 @@
+name: marine-vessel-ais-data
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9*
+  - python-dotenv
+  - sqlalchemy
+  - geoalchemy2
+  - pandas
+  - jupyterlab
+  - black
+  - flake8
+  - pytest
+  - psycopg2
+  - pip
+  - pip:
+      - --editable .
