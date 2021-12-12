@@ -4,8 +4,10 @@ Scripts to facilitate the download, extraction, and usage of data from https://m
 
 ## Requirements
 
-- To download the data, you need to have `make` and `wget` installed.
-- To run the python scripts, you'll need to have `conda` installed and a `postgres` cluster that you can write to.
+- `make` is used to faciliate running commands. It's not required, but will make your life easier.
+- `wget` is required to download the data
+- `conda` is needed to run the python scripts
+- You also need a `postgres` cluster that you can write to. The database should already exist and have the PostGIS extension enabled.
 
 ## Setup
 
