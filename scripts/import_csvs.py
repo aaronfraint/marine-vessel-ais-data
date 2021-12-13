@@ -10,7 +10,7 @@ from helpers import (
     get_dvrpc_polygon,
     clip_df_to_region,
     extract_zipfile,
-    engine,
+    ENGINE,
     DOWNLOAD_FOLDER,
     days_in_table,
     print_message_and_timer,
@@ -71,7 +71,7 @@ def import_to_db(clipped_gdf: gpd.GeoDataFrame, sql_tablename: str) -> None:
     # Write to databae
     clipped_gdf.to_sql(
         sql_tablename,
-        engine,
+        ENGINE,
         schema="raw_data",
         dtype={"geom": Geometry("POINT", srid=4326)},
         index=False,
