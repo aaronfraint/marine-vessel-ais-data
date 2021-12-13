@@ -2,6 +2,8 @@ import geopandas as gpd
 import pandas as pd
 from shapely.geometry import Polygon
 
+from .timer import print_message_and_timer
+
 
 def clip_with_bbox(
     df: pd.DataFrame,
@@ -23,6 +25,7 @@ def clip_with_bbox(
     ]
 
 
+@print_message_and_timer("Filtering by bbox, spatializing, and clipping")
 def clip_df_to_region(df: pd.DataFrame, clipping_shape: Polygon) -> gpd.GeoDataFrame:
     """
     Turn a non-spatial dataframe with lon/lat columns into a point geodataframe,

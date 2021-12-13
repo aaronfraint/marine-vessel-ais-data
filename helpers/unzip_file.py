@@ -1,16 +1,15 @@
 import zipfile
 from pathlib import Path
 
+from .timer import print_message_and_timer
 
+
+@print_message_and_timer("Extracting CSV")
 def extract_zipfile(filepath: Path) -> Path:
     """
     Extract a single .zip file to its parent folder.
     Return a filepath to the extracted CSV
     """
-
-    message = f"Extracting {filepath.stem}"
-    print(message)
-    print("-" * len(message))
 
     with zipfile.ZipFile(filepath, "r") as zip_ref:
         zip_ref.extractall(filepath.parent)
