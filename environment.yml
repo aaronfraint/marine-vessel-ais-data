@@ -12,6 +12,7 @@ dependencies:
   - flake8
   - pytest
   - psycopg2
+  - tqdm
   - pip
   - pip:
       - --editable .
