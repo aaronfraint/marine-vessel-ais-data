@@ -18,7 +18,11 @@ from helpers import (
 
 
 @print_message_and_timer("Reading raw CSV")
-def read_csv(unzipped_filepath: Path):
+def read_csv(unzipped_filepath: Path) -> pd.DataFrame:
+    """
+    - Read the raw CSV using a subset of the columns
+    - Transform column names to lower case
+    """
     df = pd.read_csv(
         unzipped_filepath,
         usecols=[
@@ -43,11 +47,20 @@ def read_csv(unzipped_filepath: Path):
 
 @print_message_and_timer("Deleting CSV")
 def delete_csv(filepath: Path) -> None:
+    """
+    Delete the provided filepath
+    """
     filepath.unlink()
 
 
 @print_message_and_timer("Importing to db")
-def import_to_db(clipped_gdf: gpd.GeoDataFrame, sql_tablename: str):
+def import_to_db(clipped_gdf: gpd.GeoDataFrame, sql_tablename: str) -> None:
+    """
+    Import a GeoDataFrame to Postgres by:
+        - Create a WKT of shapely geometry in new 'geom' column
+        - Drop the shapely 'geometry' column
+        - Import to postgres as POINT/4326, appending to table if it already exists
+    """
     clipped_gdf["geom"] = clipped_gdf["geometry"].apply(lambda x: WKTElement(x.wkt, srid=4326))
     clipped_gdf.drop(
         labels="geometry",
@@ -97,13 +110,17 @@ def import_single_zip_file(zipped_filepath: Path, sql_tablename: str) -> None:
 
 
 def import_a_year_of_files(year: int) -> None:
+    """
+    - Find all ZIP files underneath a folder for a specific year
+    - Identify the files that haven't been imported yet
+    - Import all files that haven't been imported yet
+    """
     print(f"IMPORTING ALL ZIP FILES FOR {year}")
 
-    sql_tablename = f"raw_data.ais_{year}"
-
-    days_that_were_previously_imported = days_in_table(sql_tablename)
-
     all_zipfiles = sorted(list(DOWNLOAD_FOLDER.rglob(f"{year}/*.zip")))
+
+    sql_tablename = f"raw_data.ais_{year}"
+    days_that_were_previously_imported = days_in_table(sql_tablename)
 
     zipfiles_to_process = [
         x
